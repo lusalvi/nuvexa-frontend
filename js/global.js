@@ -1,6 +1,6 @@
 // script.js corregido
-const API_URL = '/api';
-
+// const API_URL = '/api';
+// const API_URL = 'http://127.0.0.1:30123';
 
 // Determinar la base URL dependiendo de dónde se carga el script
 function getBasePath() {
