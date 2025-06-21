@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/costume.css">
+  <link rel="stylesheet" href="../css/cruds.css">
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+  <!-- Font Awesome para los iconos -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- ICON DE LA PÁGINA -->
+  <link rel="shortcut icon" href="../img/iconoSF.png" type="image/x-icon">
+  <title>Sistema de Rastreo de Flotas - Gestión de Vehículos</title>
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/global.js"></script>
+  <script src="../js/cruds.js"></script>
+</head>
+
+<body>
+  <!-- Barra de Navegación al costado -->
+  <div class="sidebar">
+    <div class="logo">
+      <img class="logo-img" src="../img/iconoSF.png" alt="Logo de GeoBuild">
+    </div>
+
+    <a href="../index.html" class="nav-item" aria-label="Dashboard">
+      <i class="fa-solid fa-gauge"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a href="personal.html" class="nav-item" aria-label="Personal">
+      <i class="fas fa-users"></i>
+      <span>Personal</span>
+    </a>
+
+    <a href="vehiculos.html" class="nav-item active" aria-label="Vehículos">
+      <i class="fas fa-car"></i>
+      <span>Vehículos</span>
+    </a>
+
+    <a href="monitoreo.html" class="nav-item" aria-label="Monitoreo">
+      <i class="fa-solid fa-map-location-dot"></i>
+      <span>Monitoreo</span>
+    </a>
+  </div>
+
+  <main class="main-content">
+    <header>
+      <h1>Gestión de Vehículos</h1>
+      <button class="logout-btn" id="CerrarSesion">
+        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+      </button>
+    </header>
+
+    <div class="container">
+      <div class="card">
+        <div class="actions mb-3">
+          <input id="searchVehiculo" onkeyup="filtrarTabla('tablaVehiculos', 'searchVehiculo', 'contadorVehiculo')"
+            placeholder="Buscar vehículo...">
+          <span id="contadorVehiculo" class="result-counter"></span>
+          <button type="button" class="btn btn-primary" id="btnNuevoVehiculo" data-bs-toggle="modal"
+            data-bs-target="#modalVehiculo">
+            Agregar Vehículo
+          </button>
+        </div>
+        <h2>Vehículos Registrados:</h2>
+        <table id="vehiculoTable">
+          <thead>
+            <tr>
+              <th>Patente</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Combustible</th>
+              <th>Kilometraje</th>
+              <th>Fecha RTO</th>
+              <th>Equipamiento</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="vehiculoTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal Vehículo -->
+  <div class="modal fade" id="modalVehiculo" tabindex="-1" aria-labelledby="modalVehiculoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="vehiculoForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalVehiculoLabel">Registrar Vehículo</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-2">
+              <label for="patente" class="form-label">Patente</label>
+              <input type="text" id="patente" name="patente" class="form-control" required maxlength="7">
+            </div>
+            <div class="mb-2">
+              <label for="marca" class="form-label">Marca</label>
+              <input type="text" id="marca" name="marca" class="form-control" required>
+            </div>
+            <div class="mb-2">
+              <label for="modelo" class="form-label">Modelo</label>
+              <input type="text" id="modelo" name="modelo" class="form-control" required>
+            </div>
+            <div class="mb-2">
+              <label for="combustible" class="form-label">Combustible</label>
+              <select id="combustible" name="combustible" class="form-select" required>
+                <option value="">Seleccione una opción</option>
+                <option value="Nafta">Nafta</option>
+                <option value="Diesel">Diesel</option>
+                <option value="GNC">GNC</option>
+                <option value="Eléctrico">Eléctrico</option>
+                <option value="Híbrido">Híbrido</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label for="kilometraje" class="form-label">Kilometraje</label>
+              <input type="number" id="kilometraje" name="kilometraje" class="form-control" required>
+            </div>
+            <div class="mb-2">
+              <label for="rto" class="form-label">Fecha RTO</label>
+              <input type="date" id="rto" name="rto" class="form-control" required>
+            </div>
+            <div class="mb-2">
+              <label for="equipamiento" class="form-label">Equipamiento</label>
+              <textarea id="equipamiento" name="equipamiento" class="form-control" rows="2"></textarea>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/bootstrap.js"></script>
+</body>
+
+</html>

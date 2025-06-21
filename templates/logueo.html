@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/css/sign-in.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- ICON -->
+  <link rel="shortcut icon" href="/img/iconoSF.png" type="image/x-icon">
+  <title>Inicio de sesión</title>
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js'
+
+    // Inicializar Supabase
+    const supabase = createClient(
+      'https://clrawvfedwpywhdcckok.supabase.co/',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNscmF3dmZlZHdweXdoZGNja29rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM1Mjk4OTQsImV4cCI6MjA1OTEwNTg5NH0.Xheegka1x9BaGjHHJUrWLhdGY6yhPfRlzJd5_wfb13U'
+    )
+
+    // Hacer disponible globalmente
+    window.supabase = supabase;
+
+    // Inicializar EmailJS
+    emailjs.init("Z-9x506U55yhP1flZ");
+  </script>
+</head>
+
+<body class="d-flex align-items-center py-4">
+  <!-- <main class="form-signin w-100 m-auto">
+    
+  </main> -->
+  <div class="form-signin w-100 m-auto">
+    <div class="split-form">
+      <div class="image-side">
+        <!-- Logo-Nombre -->
+        <img src="/img/iconoSF.png" alt="Logo Rastreo de flotas" class="logo-img">
+      </div>
+
+      <div class="form-side">
+        <h2 id="titulo">Inicio de sesión</h2>
+        <form id="Formulario">
+
+          <!-- Formulario -->
+          <div class="form-floating mb-3" id="input">
+            <input type="email" class="form-control" id="floatingInput" placeholder="correo@gmail.com" required>
+            <label for="floatingInput">Correo electrónico</label>
+          </div>
+
+          <div class="form-floating mb-3 position-relative" id="input">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña" required>
+            <label for="floatingPassword">Contraseña</label>
+            <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y me-3" id="togglePassword"
+              style="cursor: pointer;"></i>
+          </div>
+
+
+          <button class="btn btn-primary" type="submit" id="confirmar">Confirmar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Verificación -->
+  <div class="modal fade" id="modalVerificacion" tabindex="-1" aria-labelledby="modalVerificacionLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalVerificacionLabel">Verificación de identidad</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="codigoIngresado">Ingresá el código que enviamos a tu correo electrónico</label>
+            <div class="code-input">
+              <input class="digit" type="tel" maxlength="1" />
+              <input class="digit" type="tel" maxlength="1" />
+              <input class="digit" type="tel" maxlength="1" />
+              <input class="digit" type="tel" maxlength="1" />
+              <input class="digit" type="tel" maxlength="1" />
+              <input class="digit" type="tel" maxlength="1" />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="btnVerificarModal">Verificar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordInput = document.getElementById('floatingPassword');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.classList.toggle('bi-eye');
+      this.classList.toggle('bi-eye-slash');
+    });
+  </script>
+
+  <script src="/js/bootstrap.js"></script>
+  <!-- JS -->
+   <script src="/js/global.js"></script>
+   <script src="/js/logueo.js"></script>
+</body>
+
+</html>

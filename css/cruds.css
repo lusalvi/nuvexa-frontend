@@ -1,0 +1,276 @@
+/* main{
+    font-family: 'Courier New', Courier, monospace;
+} */
+
+
+.card {
+    background-color: #fefcfc;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 40px;
+    box-shadow: 0 4px 10px rgb(0, 0,0,0.2);
+}
+
+.card h2{
+    color: #7A5B5A;
+    margin-bottom: 20px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.btn,button{
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 100%;
+}
+
+.btn-primary,button {
+    color: white !important;
+    margin: 5px;
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.btn:hover, button:hover{
+    background-color: #5C565D;
+    transition: 0.2s;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+#btnNuevoConductor, #btnNuevoPasajero, #btnNuevoVehiculo {
+    background-color: #2E2E32;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.btn-warning {
+    background-color: #7A5B5A;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #6B4C4B !important; /* Versión más oscura del mismo color */
+    transition: 0.2s;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-danger {
+    background-color: #A89F91;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #968B7E !important; /* Versión más oscura del mismo color */
+    transition: 0.2s;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#conductorTable,
+#pasajeroTable,
+#vehiculoTable {
+  width: 100%;
+  border: 1px solid #efe9e9;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 14px;
+  background-color: #cdc7c7;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#conductorTable th,
+#pasajeroTable th,
+#vehiculoTable th {
+  background-color: #5C565D;
+  color: white;
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid #e0dede;
+}
+
+#conductorTable td,
+#pasajeroTable td,
+#vehiculoTable td {
+  padding: 10px 14px;
+  border: 1px solid #efe9e9;
+  background-color: #ffffff;
+}
+
+#conductorTable tr:hover td,
+#pasajeroTable tr:hover td,
+#vehiculoTable tr:hover td {
+  background-color: #E4DED9;  
+}
+
+#conductorTable td:last-child {
+  white-space: nowrap;
+  width: 1%;
+}
+
+#conductorTable .table-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+    position: relative;
+    flex: 1;
+    max-width: 400px; /* Limita el ancho */
+}
+
+/* Inputs de búsqueda actualizados */
+#searchConductor, #searchPasajero, #searchVehiculo {
+    width: 30%;
+    padding: 12px 50px 12px 16px; /* Espacio para el contador */
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
+}
+
+#searchConductor:focus,
+#searchPasajero:focus,
+#searchVehiculo:focus {
+    border-color: #8c6b65;
+    box-shadow: 0 0 5px rgba(140, 107, 101, 0.4);
+}
+
+/* Contadores de resultados */
+.result-counter {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #8c6b65;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.result-counter.visible {
+    opacity: 1;
+}
+
+.result-counter.no-results {
+    background: #dc3545;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-container {
+        max-width: none;
+        margin-bottom: 10px;
+    }
+}
+
+/*
+#conductoTable, #pasajeroTable, #vehiculoTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#conductorTable th, #conductorTable td, #pasajeroTable th, #pasajeroTable td, #vehiculoTable th, #vehiculoTable td {
+    border: 1px solid #b3a5a5;
+    padding: 10px;
+    text-align: left;
+    color: white;
+}
+
+#conductorTable th, #pasajeroTable th, #vehiculoTable th {
+    background-color: #2E2E32;
+}
+
+#conductorTable tr:nth-child(even), #pasajeroTable tr:nth-child(even), #vehiculoTable tr:nth-child(even) {
+    background-color: #2E2E32;
+}
+
+#conductorTable tr:hover, #pasajeroTable tr:hover, #vehiculoTable tr:hover {
+    background-color: #7A5B5A;
+}
+*/
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #7A5B5A;
+    border-radius: 4px;
+    background-color: #eeeef8;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar input{
+    width: 90%;
+    padding: 4px;
+    border: 1px solid #b3a5a5;
+    border-radius: 4px;
+    background-color: #eeeef8;
+    color: rgb(0, 0, 0);
+    font-size: 20px;
+}
+
+.modal-content label{
+    color: black;
+}
+
+.modal-footer button{
+    background-color: #7A5B5A;
+}
