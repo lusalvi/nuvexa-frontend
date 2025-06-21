@@ -12,11 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Build and Push Frontend
-        uses: ./build-push-microservice
+        uses: ./.github/actions/build-push-microservice
         with:
           service-name: 'frontend'
           docker-registry: 'lusalvi'
