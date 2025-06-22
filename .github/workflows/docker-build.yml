@@ -25,3 +25,4 @@ jobs:
           context: .
           push: true
           tags: lusalvi/frontend:latest
+                lusalvi/frontend:${{ github.sha }}
