@@ -1,5 +1,9 @@
 name: Build and Push Docker Image - frontend
+<<<<<<< HEAD
 
+=======
+# secrets cargados
+>>>>>>> parent of 400acb4 (update workflows)
 on:
   push:
     branches: [main]
