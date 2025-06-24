@@ -41,3 +41,7 @@ jobs:
           tags: |
             lusalvi/frontend:${{ github.ref_name }}
             lusalvi/frontend:${{ needs.extract-env.outputs.environment }}
+
+      - name: Notificar a Render
+        if: startsWith(github.ref_name, 'prod-')
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_FRONTEND }}
