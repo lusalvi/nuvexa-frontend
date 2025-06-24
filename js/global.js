@@ -81,28 +81,43 @@ async function fetchAPI(endpoint, method = 'GET', data = null) {
       options.body = JSON.stringify(data);
     }
 
-    // Determinar a cuál API llamar
-    let baseURL = API_URLS.personal; // por defecto
-    if (endpoint.startsWith('vehiculos')) baseURL = API_URLS.vehiculos;
+    // Determinar a qué microservicio llamar
+    let baseURL = API_URLS.personal;
+    if (endpoint.startsWith('vehiculos')) {
+      baseURL = API_URLS.vehiculos;
+    }
 
-    console.log(`Enviando ${method} a ${baseURL}/${endpoint}`, options);
+    const finalURL = `${baseURL}/${endpoint}`;
 
-    const res = await fetch(`${baseURL}/${endpoint}`, options);
+    console.log("========== API DEBUG ==========");
+    console.log("🌎 Ambiente:", AMBIENTE);
+    console.log("📍 Endpoint solicitado:", endpoint);
+    console.log("🔁 Método:", method);
+    console.log("📦 Payload:", data);
+    console.log("🧭 URL final:", finalURL);
+    console.log("⚙️ Options:", options);
+    console.log("================================");
+
+    const res = await fetch(finalURL, options);
 
     if (!res.ok) {
       const errorText = await res.text();
-      console.error(`Error en la solicitud: ${res.status} ${res.statusText}`, errorText);
+      console.error(`🚨 Error en la solicitud: ${res.status} ${res.statusText}`);
+      console.error("🧾 Detalle del error:", errorText);
       throw new Error(errorText || `Error ${res.status}: ${res.statusText}`);
     }
 
     const responseData = await res.json();
-    console.log(`Respuesta de ${endpoint}:`, responseData);
+    console.log("✅ Respuesta recibida:", responseData);
     return responseData;
+
   } catch (error) {
-    console.error(`Error en fetchAPI para ${endpoint}:`, error);
+    console.error("🔥 Error final al llamar fetchAPI:", error);
+    alert("Error al conectar con el servidor. Revisá la consola (F12).");
     throw error;
   }
 }
+
 
 // -------------------- UTILIDADES  --------------------
 function formatearFecha(fecha) {
