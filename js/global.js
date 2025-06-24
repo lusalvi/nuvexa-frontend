@@ -1,6 +1,34 @@
-// script.js corregido
-// const API_URL = '/api';
-// const API_URL = 'http://127.0.0.1:30123';
+// -------------------- CONFIGURACIÓN DE API --------------------
+
+function detectarAmbiente() {
+  const origin = window.location.origin;
+
+  if (origin.includes('onrender.com')) return 'prod';
+  if (origin.includes('nuvexa-test.local')) return 'test';
+  if (origin.includes('nuvexa.local')) return 'dev';
+
+  return 'dev'; // fallback (podés cambiarlo a 'test' si preferís)
+}
+
+const AMBIENTE = detectarAmbiente();
+
+const API_BASES = {
+  dev: {
+    personal: 'http://nuvexa.local:30123/api',
+    vehiculos: 'http://nuvexa.local:30124/api'
+  },
+  test: {
+    personal: 'http://nuvexa-test.local:30123/api',
+    vehiculos: 'http://nuvexa-test.local:30124/api'
+  },
+  prod: {
+    personal: 'https://nuvexa-ms-personal.onrender.com/api',
+    vehiculos: 'https://nuvexa-ms-vehiculos.onrender.com/api'
+  }
+};
+
+const API_URLS = API_BASES[AMBIENTE];
+
 
 // Determinar la base URL dependiendo de dónde se carga el script
 function getBasePath() {
@@ -53,9 +81,13 @@ async function fetchAPI(endpoint, method = 'GET', data = null) {
       options.body = JSON.stringify(data);
     }
 
-    console.log(`Enviando ${method} a ${API_URL}/${endpoint}`, options);
+    // Determinar a cuál API llamar
+    let baseURL = API_URLS.personal; // por defecto
+    if (endpoint.startsWith('vehiculos')) baseURL = API_URLS.vehiculos;
 
-    const res = await fetch(`${API_URL}/${endpoint}`, options);
+    console.log(`Enviando ${method} a ${baseURL}/${endpoint}`, options);
+
+    const res = await fetch(`${baseURL}/${endpoint}`, options);
 
     if (!res.ok) {
       const errorText = await res.text();
